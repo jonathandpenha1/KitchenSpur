@@ -62,9 +62,20 @@ class RestaurantController extends Controller
         }
 
         // 3️⃣ Filter by hour range (time of day)
-        if ($request->start_hour !== null && $request->end_hour !== null) {
-            $query->whereRaw('HOUR(order_time) BETWEEN ? AND ?', [$request->start_hour, $request->end_hour]);
+        // 3️⃣ Filter by time range (HH:mm) — SAFE
+        if ($request->start_time || $request->end_time) {
+
+            // Default bounds
+            $startTime = $request->start_time ?? '00:00';
+            $endTime   = $request->end_time   ?? '23:59';
+
+            $query->whereRaw(
+                'TIME(order_time) BETWEEN ? AND ?',
+                [$startTime, $endTime]
+            );
         }
+
+
 
         // Order by ID ascending
         $query->orderBy('id', 'asc');

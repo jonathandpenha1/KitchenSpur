@@ -18,14 +18,17 @@ export default function Page() {
   const [loadingOrders, setLoadingOrders] = useState(false);
 
   // Filters
-  const [filters, setFilters] = useState({
+  const DEFAULT_FILTERS = {
     start_date: "",
     end_date: "",
     min_amount: "",
     max_amount: "",
-    start_hour: "",
-    end_hour: "",
-  });
+    start_time: "",
+    end_time: "",
+  };
+  
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
+
 
   // Fetch restaurant details
   useEffect(() => {
@@ -68,6 +71,13 @@ export default function Page() {
     setPage(1);
     fetchOrders();
   };
+
+    // ✅ Reset filters
+  const resetFilters = () => {
+    setFilters(DEFAULT_FILTERS);
+    setPage(1);
+  };
+
 
   if (error)
     return (
@@ -170,32 +180,27 @@ export default function Page() {
           </label>
 
           <label className="flex flex-col text-black">
-            Start Hour
+            Start Time
             <input
-              type="number"
-              name="start_hour"
-              min="0"
-              max="23"
-              value={filters.start_hour}
+              type="time"
+              name="start_time"
+              value={filters.start_time}
               onChange={handleFilterChange}
               className="border rounded px-2 py-1"
-              placeholder="0-23"
             />
           </label>
 
           <label className="flex flex-col text-black">
-            End Hour
+            End Time
             <input
-              type="number"
-              name="end_hour"
-              min="0"
-              max="23"
-              value={filters.end_hour}
+              type="time"
+              name="end_time"
+              value={filters.end_time}
               onChange={handleFilterChange}
               className="border rounded px-2 py-1"
-              placeholder="0-23"
             />
           </label>
+
 
           <button
             type="button"
@@ -203,6 +208,15 @@ export default function Page() {
             className="bg-orange-500 text-white px-4 py-2 rounded"
           >
             Apply Filters
+          </button>
+
+          {/* ✅ Reset Button */}
+          <button
+            type="button"
+            onClick={resetFilters}
+            className="bg-gray-300 text-black px-4 py-2 rounded"
+          >
+            Reset
           </button>
         </div>
 
