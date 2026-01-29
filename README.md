@@ -123,7 +123,7 @@ KitchenSpur/
     ├── app/restaurants/[id]/analytics
     ├── app/top-restaurants
     └── services/api.js
-
+```
 
 
 Jonathan D’Penha
