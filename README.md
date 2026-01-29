@@ -105,6 +105,7 @@ baseURL: "http://127.0.0.1:8000/api"
 /analytics/top-restaurants – Top 3 restaurants by revenue
 
 ## Project Structure:
+```bash
 KitchenSpur/
 │
 ├── backend/ (Laravel API)
